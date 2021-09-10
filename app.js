@@ -31,7 +31,7 @@ const showImages = (images) => {
 const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
-    .then(data => showImages(data.hits))
+    .then(data => showImages(data.hitS))
     .catch(err => console.log(err))
 }
 
@@ -44,9 +44,7 @@ const selectItem = (event, img) => {
   if (item === -1) {
     sliders.push(img);
   } else {
-    element.classList.remove('added')
-    sliders = sliders.filter(slider => slider !== img)
-    // alert('Hey, Already added !')
+    alert('Hey, Already added !')
   }
 }
 var timer
@@ -69,11 +67,7 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  let duration = document.getElementById('duration').value || 1000;
-  if (duration < 0) {
-    alert("Negative duration is not allowed, setting to 1 Second.");
-    duration = 1000;
-  }
+  const duration = document.getElementById('duration').value || 1000;
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -121,7 +115,6 @@ searchBtn.addEventListener('click', function () {
   const search = document.getElementById('search');
   getImages(search.value)
   sliders.length = 0;
-  search.value = '';
 })
 
 sliderBtn.addEventListener('click', function () {
